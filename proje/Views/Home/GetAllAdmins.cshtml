@@ -1,0 +1,25 @@
+﻿@model List<Admin>
+
+<div class="table-responsive table--no-card m-b-30">
+    <table class="table table-borderless table-striped table-earning">
+        <thead>
+            <tr>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Email</th>
+                <th>Şifre</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Admin mert in Model)
+            {
+                <tr>
+                    <td>@mert.Name</td>
+                    <td>@mert.Surname</td>
+                    <td>@mert.Email</td>
+                    <td>@mert.Password</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
