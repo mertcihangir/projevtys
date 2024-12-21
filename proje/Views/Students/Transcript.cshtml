@@ -1,0 +1,32 @@
+﻿@model dynamic
+
+<div class="row">
+	<div class="col-12">
+        <h3>Transkript</h3>
+        <div class="table-responsive table--no-card m-b-30">
+            <table class="table table-borderless table-striped table-earning">
+                <thead>
+                    <tr>
+                        <th>Ders ID</th>
+                        <th>Öğretmen Adı</th>
+                        <th>Ders Adı</th>
+                        <th>Ders Kredisi</th>
+                        <th>Ders Tipi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (dynamic course in Model)
+                    {
+                        <tr>
+                            <td>@course.CourseId</td>
+                            <td>@course.TeacherName</td>
+                            <td>@course.CourseName</td>
+                            <td>@course.CourseCredit</td>
+                            <td>@(course.CourseType == true ? "Zorunlu" : "Seçmeli")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+	</div>
+</div>

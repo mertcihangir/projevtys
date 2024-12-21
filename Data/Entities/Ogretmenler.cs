@@ -8,17 +8,16 @@ using System.Threading.Tasks;
 
 namespace Data.Entities
 {
-    public class Admin
+    public class Ogretmenler
     {
         [Key]
         public int Id { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
-
         public string Name { get; set; }
         public string Surname { get; set; }
 
         [NotMapped]
-        public string Role = "Dekan";
+        public string Role = "Ögretmen";
     }
 }

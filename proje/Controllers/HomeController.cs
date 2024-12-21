@@ -21,11 +21,6 @@ namespace proje.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -37,21 +32,9 @@ namespace proje.Controllers
             using (Db db = new Db())
             {
                 int currentUserId = Convert.ToInt32(HttpContext.Session.GetInt32("CurrentUserId"));
-                Admin currentUser = db.Admin.Find(currentUserId);
+                Student currentUser = db.Student.Find(currentUserId);
 
                 return PartialView(currentUser);
-            }
-
-        }
-
-        public IActionResult L
-
-        public IActionResult GetAllAdmins()
-        {
-            using (Db db = new Db())
-            {
-                List<Admin> allAdmins = db.Admin.ToList();
-                return PartialView(allAdmins);
             }
 
         }
@@ -65,23 +48,12 @@ namespace proje.Controllers
                 using (Db db = new Db())
                 {
                     int currentUserId = Convert.ToInt32(HttpContext.Session.GetInt32("CurrentUserId"));
-                    Admin currentUser = db.Admin.Find(currentUserId);
+                    Student currentUser = db.Student.Find(currentUserId);
 
                     currentUser.Name = Name;
                     currentUser.Surname = Surname;
                     currentUser.Email = Email;
                     currentUser.Password= Password;
-
-
-                    // VERÝ EKLEME KISMI
-                    //Student newUser = new Student
-                    //{
-                    //    Name = "akjhdaskd",
-                    //    Surname = "asdsad"
-                    //};
-
-                    //db.Student.Add(newUser);
-
 
                     db.SaveChanges();
                     HttpContext?.Session?.SetString("Name", currentUser.Name + " " + currentUser.Surname);

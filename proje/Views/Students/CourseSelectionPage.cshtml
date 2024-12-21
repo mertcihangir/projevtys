@@ -1,0 +1,105 @@
+﻿@model dynamic
+
+<div class="row">
+	<div class="col-6">
+		<h3>Dersler</h3>
+        <div class="table-responsive table--no-card m-b-30">
+            <table class="table table-borderless table-striped table-earning">
+                <thead>
+                    <tr>
+                        <th>Ders ID</th>
+                        <th>Öğretmen Adı</th>
+                        <th>Ders Adı</th>
+                        <th>Ders Kredisi</th>
+                        <th>Ders Tipi</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody id="courseUnselectedTable">
+                    @foreach (dynamic course in Model.AllCourses)
+                    {
+                        <tr id="unselectedCourse_@course.CourseId" data-id="@course.CourseId">
+                            <td>@course.CourseId</td>
+                            <td>@course.TeacherName</td>
+                            <td>@course.CourseName</td>
+                            <td>@course.CourseCredit</td>
+                            <td>@(course.CourseType == true ? "Zorunlu" : "Seçmeli")</td>
+                            <td>
+                                @if (Model.StudentCourses.Count > 0)
+                                {
+                                    <button type="submit" class="btn btn-success courseSelectBtn" data-id="@course.CourseId" disabled>Ekle</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-success courseSelectBtn" data-id="@course.CourseId">Ekle</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+	</div>
+	<div class="col-6">
+        <div class="row">
+            <div class="col-6">
+                <button type="submit" class="btn btn-warning" id="selectedCoursesSave" @(Model.StudentCourses.Count > 0 ? "disabled" : "")>Dersleri Kaydet</button>
+            </div>
+            <div class="col-6">
+                @if (Model.StudentCourses.Count > 0)
+                {
+                    @if (Model.isConfirmed)
+                    {
+                        <h4 id="confirmMessage" style="color: green; display:block">Ders seçiminiz onaylandı!</h4>
+                    }
+                    else
+                    {
+                        <h4 id="confirmMessage" style="color: red; display:block">Ders seçiminiz beklemede!</h4>
+                    }
+                }
+                else
+                {
+                    <h4 id="confirmMessage" style="color: red; display:none">Ders seçiminiz beklemede!</h4>
+                }
+            </div>
+        </div>
+        <br />
+		<h3>Seçilen Dersler</h3>
+        <div class="table-responsive table--no-card m-b-30">
+            <table class="table table-borderless table-striped table-earning">
+                <thead>
+                    <tr>
+                        <th>Ders ID</th>
+                        <th>Öğretmen Adı</th>
+                        <th>Ders Adı</th>
+                        <th>Ders Kredisi</th>
+                        <th>Ders Tipi</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody id="courseSelectedTable">
+                    @foreach (dynamic course in Model.StudentCourses)
+                    {
+                        <tr id="selectedCourse_@course.CourseId" data-id="@course.CourseId">
+                            <td>@course.CourseId</td>
+                            <td>@course.TeacherName</td>
+                            <td>@course.CourseName</td>
+                            <td>@course.CourseCredit</td>
+                            <td>@(course.CourseType == true ? "Zorunlu" : "Seçmeli")</td>
+                            <td>
+                                @if (Model.StudentCourses.Count > 0)
+                                {
+                                    <button type="submit" class="btn btn-danger courseUnselectBtn" data-id="@course.CourseId" disabled>Çıkart</button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn btn-danger courseUnselectBtn" data-id="@course.CourseId">Çıkart</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+	</div>
+</div>

@@ -35,8 +35,10 @@ app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Login}/{action=Index}/{id?}");
+
 using (Db db = new Db())
 {
 
 }
+
 app.Run();

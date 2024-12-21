@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 using Data.Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Data.Context
 {
@@ -16,11 +11,23 @@ namespace Data.Context
         {
         }
 
-        public virtual DbSet<Admin> Admin { get; set; }
-
+        public virtual DbSet<Teacher> Teacher { get; set; }
+        public virtual DbSet<Student> Student { get; set; }
+        public virtual DbSet<Course> Course { get; set; }
+        public virtual DbSet<TeacherCourses> TeacherCourses { get; set; }
+        public virtual DbSet<StudentCourses> StudentCourses { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Course>()
+                .Property(c => c.Type)
+                .HasDefaultValue(false);
+
+            modelBuilder.Entity<Student>()
+                .Property(c => c.CreatedDate)
+                .HasDefaultValueSql("GETDATE()");
+
+
             base.OnModelCreating(modelBuilder);
         }
     }
