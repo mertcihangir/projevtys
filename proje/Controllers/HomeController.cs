@@ -32,9 +32,30 @@ namespace proje.Controllers
             using (Db db = new Db())
             {
                 int currentUserId = Convert.ToInt32(HttpContext.Session.GetInt32("CurrentUserId"));
-                Student currentUser = db.Student.Find(currentUserId);
+                dynamic CurrentUser = null;
+                string UserClass = HttpContext?.Session?.GetString("Role");
+                switch (UserClass)
+                {
+                    case "Student":
+                        Student currentStudent = db.Student.Find(currentUserId);
+                        CurrentUser = currentStudent;
+                        break;
+                    case "Teacher":
+                        Teacher currentTeacher = db.Teacher.Find(currentUserId);
+                        CurrentUser = currentTeacher;
+                        break;
+                    default:
+                        CurrentUser = new
+                        {
+                            Name = "Bilinmiyor",
+                            Surname = "Bilinmiyor",
+                            Email = "Bilinmiyor",
+                            Password = "Bilinmiyor"
+                        };
+                        break;
+                }
 
-                return PartialView(currentUser);
+                return PartialView(CurrentUser);
             }
 
         }
